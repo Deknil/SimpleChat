@@ -1,0 +1,49 @@
+/**
+ * Plugins
+ */
+plugins {
+    id 'java'
+}
+
+/**
+ * Project information
+ */
+group = 'ru.deknil.simplechat'
+version = '1.0-SNAPSHOT'
+
+/**
+ * Dependency Repositories
+ */
+repositories {
+    mavenCentral()
+}
+
+/**
+ * Project Dependencies
+ */
+dependencies {
+}
+
+/**
+ * Creating an executable JAR file
+ */
+jar {
+    destinationDirectory = file("build")
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+
+    manifest {
+        attributes(
+                'Main-Class': 'ru.deknil.simplechat.Main',
+                'Implementation-Title': 'SimpleChat',
+                'Implementation-Version': version,
+                'Implementation-Vendor': 'ru.deknil',
+                'Specification-Title': 'SimpleChat',
+                'Specification-Version': '1.0',
+                'Specification-Vendor': 'ru.deknil'
+        )
+    }
+
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
